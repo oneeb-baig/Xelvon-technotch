@@ -68,5 +68,32 @@ const year = new Date().getFullYear();
         window.scrollTo({ top: 0 });
       }
     </script>
+
+    <script>
+      // Scroll-reveal: tag every top-level section and slide it up when it
+      // enters the viewport. Stagger siblings slightly via --reveal-delay.
+      const sections = document.querySelectorAll<HTMLElement>('main section');
+      sections.forEach((el, i) => {
+        el.setAttribute('data-reveal', '');
+        el.style.setProperty('--reveal-delay', `${Math.min(i, 3) * 60}ms`);
+      });
+
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('reveal-visible');
+                io.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.12, rootMargin: '0px 0px -40px 0px' },
+        );
+        sections.forEach((el) => io.observe(el));
+      } else {
+        sections.forEach((el) => el.classList.add('reveal-visible'));
+      }
+    </script>
   </body>
 </html>
