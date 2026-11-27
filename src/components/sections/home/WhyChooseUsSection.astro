@@ -1,0 +1,52 @@
+---
+const PILLARS = [
+  {
+    number: '01',
+    title: 'Engineer-led',
+    description:
+      'Experienced engineers lead every engagement, from scoping to handover.',
+  },
+  {
+    number: '02',
+    title: 'Security first',
+    description:
+      'Built in from the first design decision, never bolted on at the end.',
+  },
+  {
+    number: '03',
+    title: 'Local, nationwide',
+    description:
+      'Based in Lahore, supporting businesses across Pakistan, with a 24/7 help desk.',
+  },
+  {
+    number: '04',
+    title: 'Transparent delivery',
+    description:
+      'Clear scope, timelines and reporting so you always know where things stand.',
+  },
+];
+---
+
+<section class="w-full bg-white py-14 sm:py-16 lg:py-20">
+  <div class="mx-auto w-full max-w-site px-5 sm:px-8 lg:px-14">
+    <h2 class="font-heading text-[26px] font-bold leading-tight text-xelvon-dark sm:text-[32px] lg:text-[36px]">
+      Why choose us
+    </h2>
+
+    <div class="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-7">
+      {PILLARS.map((pillar) => (
+        <div class="border-t border-xelvon-green/65 pt-4">
+          <span class="block font-heading text-[26px] font-bold leading-none text-xelvon-green sm:text-[28px]">
+            {pillar.number}
+          </span>
+          <h3 class="mt-4 font-heading text-[16px] font-bold text-xelvon-dark sm:text-[17px]">
+            {pillar.title}
+          </h3>
+          <p class="mt-2 font-body text-[13px] leading-relaxed text-[#333333] sm:text-[13.5px]">
+            {pillar.description}
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HomeHero from '../components/sections/home/HomeHero.astro';
+import WhatWeDoSection from '../components/sections/home/WhatWeDoSection.astro';
+import WhyChooseUsSection from '../components/sections/home/WhyChooseUsSection.astro';
+import TechStackSection from '../components/sections/home/TechStackSection.astro';
+import RegistrationsGrid from '../components/sections/RegistrationsGrid.astro';
+import CtaBanner from '../components/sections/CtaBanner.astro';
+---
+
+<BaseLayout title="Xelvon | Cybersecurity, Cloud & Custom Software">
+  <div class="w-full">
+    <HomeHero />
+    <WhatWeDoSection />
+    <WhyChooseUsSection />
+    <TechStackSection />
+    <RegistrationsGrid />
+    <CtaBanner
+      title="Let's talk about your project"
+      subtitle="Tell us what you need and an engineer will reply within one business day."
+      buttonText="Contact us"
+      buttonHref="/contact"
+    />
+  </div>
+</BaseLayout>

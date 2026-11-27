@@ -1,0 +1,117 @@
+---
+import Icon from '../../icons/Icon.astro';
+import SectionEyebrow from '../SectionEyebrow.astro';
+
+const FEATURED_BULLETS = [
+  'Web & e-commerce',
+  'Custom software',
+  'Mobile apps',
+  'Integrations & payments',
+  'AI & automation',
+  'Product Studio',
+];
+
+const SECONDARY_SERVICES = [
+  {
+    id: 'cybersecurity',
+    title: 'Cyber Security & IT',
+    summary:
+      'Incident response & DFIR · Penetration testing · Security audits & hardening · 24/7 SOC & monitoring',
+    href: '/services#cybersecurity',
+    icon: 'shield',
+  },
+  {
+    id: 'cloud',
+    title: 'Infrastructure & Cloud',
+    summary: 'Cloud migration · Network design · Backup & recovery',
+    href: '/services#cloud',
+    icon: 'cloud',
+  },
+  {
+    id: 'support',
+    title: 'Managed IT & Support',
+    summary: '24/7 help desk · Managed services · IT consulting',
+    href: '/services#support',
+    icon: 'headphones',
+  },
+];
+---
+
+<section class="w-full bg-[#F3F5F1] py-14 sm:py-16 lg:py-20">
+  <div class="mx-auto w-full max-w-site px-5 sm:px-8 lg:px-14">
+    <SectionEyebrow label="WHAT WE DO" />
+
+    <h2 class="mt-3 max-w-[680px] font-heading text-[26px] font-bold leading-[1.2] text-xelvon-dark sm:text-[32px] lg:text-[36px]">
+      One team for security, infrastructure, software and support
+    </h2>
+
+    {/* Bento Grid: Featured Left Card + 3 Stacked Right Cards */}
+    <div class="mt-9 grid grid-cols-1 gap-4 lg:grid-cols-12 lg:gap-5">
+      {/* Left Featured Card: Software & Web */}
+      <div class="flex flex-col justify-between rounded-[14px] bg-xelvon-green p-7 text-white sm:p-9 lg:col-span-6">
+        <div>
+          {/* Icon Badge */}
+          <div class="inline-flex h-12 w-12 items-center justify-center rounded-[10px] bg-white/15 text-xelvon-lime">
+            <Icon name="code2" size={24} strokeWidth={2} />
+          </div>
+
+          <h3 class="mt-6 font-heading text-[22px] font-bold text-white sm:text-[24px]">
+            Software &amp; Web
+          </h3>
+
+          <p class="mt-2.5 max-w-[440px] font-body text-[13.5px] leading-relaxed text-white/90 sm:text-[14px]">
+            Custom software, web and mobile products engineered to last,
+            with security reviewed at every step.
+          </p>
+
+          <ul class="mt-6 space-y-3">
+            {FEATURED_BULLETS.map((bullet) => (
+              <li class="flex items-center gap-3 text-[13.5px] text-white/95">
+                <Icon name="check" size={15} strokeWidth={2.6} class="shrink-0 text-xelvon-lime" />
+                <span>{bullet}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="mt-8 flex sm:justify-end">
+          <a
+            href="/services#software"
+            class="inline-flex h-[42px] w-full items-center justify-center rounded-[6px] bg-xelvon-lime px-6 font-heading text-[13px] font-bold text-xelvon-dark transition-colors hover:bg-xelvon-lime-hover sm:w-auto"
+          >
+            Explore Software &amp; Web →
+          </a>
+        </div>
+      </div>
+
+      {/* Right Column: 3 Stacked Service Cards */}
+      <div class="flex flex-col gap-3.5 lg:col-span-6">
+        {SECONDARY_SERVICES.map(({ title, summary, href, icon }) => (
+          <a
+            href={href}
+            class="group flex flex-1 flex-col justify-between gap-4 rounded-[14px] border border-[#e3e7e0] bg-white px-6 py-7 transition-all duration-150 hover:border-xelvon-green/45 hover:shadow-sm sm:flex-row sm:items-center sm:px-8 sm:py-8"
+          >
+            <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-5">
+              <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-[10px] bg-[#f1f5ef] text-xelvon-green transition-colors group-hover:bg-xelvon-green group-hover:text-white">
+                <Icon name={icon} size={22} strokeWidth={1.9} />
+              </div>
+
+              <div>
+                <h3 class="font-heading text-[17px] font-bold text-xelvon-dark group-hover:text-xelvon-green sm:text-[18px]">
+                  {title}
+                </h3>
+                <p class="mt-1.5 max-w-[355px] font-body text-[12.5px] leading-relaxed text-xelvon-muted sm:text-[13px]">
+                  {summary}
+                </p>
+              </div>
+            </div>
+
+            <span class="inline-flex shrink-0 items-center gap-1.5 font-heading text-[12.5px] font-bold text-xelvon-green">
+              View all →
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

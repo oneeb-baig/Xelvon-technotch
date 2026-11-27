@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Page Not Found | Xelvon" description="The page you are looking for does not exist.">
+  <section class="flex w-full items-center bg-white py-24 sm:py-32">
+    <div class="mx-auto w-full max-w-site px-5 text-center sm:px-8 lg:px-14">
+      <p class="font-heading text-[64px] font-bold leading-none text-xelvon-green sm:text-[88px]">404</p>
+      <h1 class="mt-4 font-heading text-[24px] font-bold text-xelvon-dark sm:text-[30px]">
+        Page not found
+      </h1>
+      <p class="mx-auto mt-3 max-w-[440px] font-body text-[14px] leading-relaxed text-[#444444]">
+        The page you are looking for doesn't exist or has been moved. Let's get you back on track.
+      </p>
+      <div class="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+        <a
+          href="/"
+          class="inline-flex h-[46px] w-full items-center justify-center rounded-[5px] bg-xelvon-green px-7 font-heading text-[14px] font-semibold text-white transition-colors hover:bg-xelvon-green-hover sm:w-auto"
+        >
+          Back to home
+        </a>
+        <a
+          href="/contact"
+          class="inline-flex h-[46px] w-full items-center justify-center rounded-[5px] border border-xelvon-green bg-white px-7 font-heading text-[14px] font-semibold text-xelvon-green transition-colors hover:bg-xelvon-green-light sm:w-auto"
+        >
+          Contact us
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

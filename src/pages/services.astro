@@ -1,0 +1,244 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/icons/Icon.astro';
+import PageHero from '../components/sections/PageHero.astro';
+import CtaBanner from '../components/sections/CtaBanner.astro';
+
+interface SubService {
+  title: string;
+  description: string;
+  featured?: boolean;
+  fullWidth?: boolean;
+}
+
+interface ServiceCategory {
+  id: string;
+  title: string;
+  description: string;
+  icon: string;
+  sectionBg: 'white' | 'sage';
+  items: SubService[];
+}
+
+const SERVICE_CATEGORIES: ServiceCategory[] = [
+  {
+    id: 'software',
+    title: 'Software & Web',
+    description:
+      'Custom software, web and mobile products engineered to last, with security reviewed at every step.',
+    icon: 'code2',
+    sectionBg: 'white',
+    items: [
+      {
+        title: 'Web & e-commerce',
+        description: 'Fast, accessible websites, portals and online stores.',
+        featured: true,
+      },
+      {
+        title: 'Custom software',
+        description:
+          'Business systems, Dynamics 365 and Power Platform apps, built around your process.',
+      },
+      {
+        title: 'Mobile apps',
+        description: 'Native and cross-platform apps for staff and customers.',
+      },
+      {
+        title: 'Integrations & payments',
+        description:
+          'Payment gateways and ERP, CRM and data links, with no re-keying.',
+      },
+      {
+        title: 'AI & automation',
+        description: 'AI agents, automations and data systems that cut manual work.',
+      },
+      {
+        title: 'Product Studio',
+        description: 'From idea to a launch-ready MVP: discovery, design and build.',
+      },
+    ],
+  },
+  {
+    id: 'cybersecurity',
+    title: 'Cyber Security & IT',
+    description:
+      'Detect, contain, recover and harden. Incident response when it matters, testing and audits before it does.',
+    icon: 'shield',
+    sectionBg: 'sage',
+    items: [
+      {
+        title: 'Incident response & DFIR',
+        description: 'Contain an active attack and find out exactly what happened.',
+        featured: true,
+      },
+      {
+        title: 'Penetration testing',
+        description: 'Find exploitable weaknesses in apps, networks and people.',
+      },
+      {
+        title: 'Audits & hardening',
+        description:
+          'Review controls and configuration, then harden or rebuild servers cleanly.',
+      },
+      {
+        title: 'SOC & monitoring',
+        description: '24/7 watch over your logs, servers and endpoints.',
+      },
+    ],
+  },
+  {
+    id: 'cloud',
+    title: 'Infrastructure & Cloud',
+    description:
+      'Reliable, cost-aware infrastructure on Azure, AWS, Google Cloud, Alibaba Cloud, Oracle Cloud or on-premises.',
+    icon: 'cloud',
+    sectionBg: 'white',
+    items: [
+      {
+        title: 'Cloud migration',
+        description: 'Move workloads with low downtime and a clear cost model.',
+        featured: true,
+      },
+      {
+        title: 'Network design',
+        description: 'Segmented, resilient networks designed with security first.',
+      },
+      {
+        title: 'Server management',
+        description: 'Linux and Windows servers patched, monitored and hardened.',
+      },
+      {
+        title: 'Backup & recovery',
+        description: 'Tested backups, plus RAID, server and SQL database recovery.',
+      },
+    ],
+  },
+  {
+    id: 'support',
+    title: 'Managed IT & Support',
+    description:
+      'Day-to-day IT run by a team that knows your environment, with a help desk that answers 24/7.',
+    icon: 'headphones',
+    sectionBg: 'sage',
+    items: [
+      {
+        title: '24/7 help desk',
+        description: 'Support for your staff around the clock, remote or on site.',
+        featured: true,
+      },
+      {
+        title: 'Managed services',
+        description: 'Proactive care for devices, servers and licences.',
+      },
+      {
+        title: 'Advisory & strategy',
+        description: 'Practical advice on roadmaps, vendors and budget.',
+      },
+      {
+        title: 'Procurement',
+        description: 'Right-sized hardware and software, supplied and set up.',
+      },
+      {
+        title: 'Staff augmentation',
+        description:
+          'Experienced engineers who join your team on demand, with clear ownership.',
+        fullWidth: true,
+      },
+    ],
+  },
+];
+---
+
+<BaseLayout title="Our Services | Xelvon">
+  <div class="w-full">
+    {/* Dark Green Hero with 4 Category Pills */}
+    <PageHero
+      title="Our services"
+      subtitle="Security, cloud, software and 24/7 IT support from one Lahore-based team, for businesses across Pakistan."
+    >
+      <div class="grid grid-cols-2 gap-2.5 sm:flex sm:flex-wrap sm:items-center sm:gap-3.5">
+        {SERVICE_CATEGORIES.map(({ id, title, icon }) => (
+          <a
+            href={`#${id}`}
+            class="inline-flex h-[38px] items-center justify-center gap-2 rounded-full border border-xelvon-lime/85 bg-xelvon-green/40 px-4 font-heading text-[12px] font-medium text-white transition-colors hover:bg-xelvon-lime hover:text-xelvon-dark sm:justify-start sm:px-5 sm:text-[13px]"
+          >
+            <Icon name={icon} size={15} strokeWidth={2} class="shrink-0 text-xelvon-lime" />
+            <span class="truncate">{title}</span>
+          </a>
+        ))}
+      </div>
+    </PageHero>
+
+    {/* 4 Alternating Service Category Sections */}
+    {SERVICE_CATEGORIES.map((category) => {
+      const isWhiteSection = category.sectionBg === 'white';
+      return (
+        <section
+          id={category.id}
+          class={`scroll-mt-[84px] w-full py-14 sm:py-16 lg:py-20 ${isWhiteSection ? 'bg-white' : 'bg-[#F3F5F1]'}`}
+        >
+          <div class="mx-auto w-full max-w-site px-5 sm:px-8 lg:px-14">
+            <div class="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-10">
+              {/* Left Column: Icon + Category Title & Description */}
+              <div class="lg:col-span-4">
+                <div class="inline-flex h-12 w-12 items-center justify-center rounded-[10px] bg-xelvon-green text-xelvon-lime">
+                  <Icon name={category.icon} size={22} strokeWidth={2} />
+                </div>
+
+                <h2 class="mt-5 font-heading text-[24px] font-bold leading-tight text-xelvon-dark sm:text-[26px]">
+                  {category.title}
+                </h2>
+
+                <p class="mt-2.5 max-w-[330px] font-body text-[13.5px] leading-[1.6] text-[#444444] sm:text-[14px]">
+                  {category.description}
+                </p>
+              </div>
+
+              {/* Right Column: 2-Column Sub-Service Cards Grid */}
+              <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:col-span-8">
+                {category.items.map((item) => {
+                  const cardBg = isWhiteSection ? 'bg-[#F3F5F1]' : 'bg-white';
+                  const cardBorder = item.featured
+                    ? isWhiteSection
+                      ? 'border-[1.5px] border-xelvon-green/65 shadow-[0_2px_10px_rgba(40,107,49,0.08)]'
+                      : 'border-[1.5px] border-xelvon-lime shadow-[0_2px_10px_rgba(176,218,25,0.12)]'
+                    : 'border border-transparent hover:border-xelvon-green/40';
+
+                  return (
+                    <a
+                      href={`/contact?service=${encodeURIComponent(category.title)}`}
+                      class={`group flex flex-col justify-between rounded-[10px] p-6 transition-all duration-150 sm:p-7 ${cardBg} ${cardBorder} ${item.fullWidth ? 'sm:col-span-2' : ''}`}
+                    >
+                      <div>
+                        <h3 class="font-heading text-[16px] font-bold text-xelvon-dark group-hover:text-xelvon-green sm:text-[17px]">
+                          {item.title}
+                        </h3>
+                        <p class="mt-2 font-body text-[13px] leading-[1.55] text-[#444444] sm:text-[13.5px]">
+                          {item.description}
+                        </p>
+                      </div>
+
+                      <div class="mt-5 flex justify-end sm:justify-start">
+                        <span class="inline-flex items-center gap-1.5 font-heading text-[12.5px] font-bold text-xelvon-green">
+                          Learn more →
+                        </span>
+                      </div>
+                    </a>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </section>
+      );
+    })}
+
+    {/* Bottom CTA Banner */}
+    <CtaBanner
+      title="Not sure which service fits?"
+      subtitle="Describe the problem and an engineer will recommend the right starting point within one business day."
+      buttonText="Contact us"
+      buttonHref="/contact"
+    />
+  </div>
+</BaseLayout>

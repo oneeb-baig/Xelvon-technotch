@@ -1,0 +1,547 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/icons/Icon.astro';
+import PageHero from '../components/sections/PageHero.astro';
+import { COMPANY } from '../data/content';
+
+const SERVICE_OPTIONS = [
+  'Software & Web',
+  'Cyber Security & IT',
+  'Infrastructure & Cloud',
+  'Managed IT & Support',
+  'Not sure yet',
+];
+
+// Pre-fill service if navigated from /services?service=...
+const preselectedParam = Astro.url.searchParams.get('service') ?? '';
+const preselected = SERVICE_OPTIONS.find(
+  (opt) => opt.toLowerCase() === preselectedParam.toLowerCase(),
+) ?? '';
+---
+
+<BaseLayout title="Contact Us | Xelvon">
+  <div class="w-full bg-white">
+    {/* Dark Green Hero */}
+    <PageHero
+      title="Contact us"
+      subtitle="Tell us about your project or incident. We reply within one business day. For emergencies, call or WhatsApp our 24/7 help desk."
+    />
+
+    {/* Main 2-Column Contact Layout */}
+    <section class="w-full bg-white py-14 sm:py-16 lg:py-20">
+      <div class="mx-auto w-full max-w-site px-5 sm:px-8 lg:px-14">
+        <div class="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-12">
+          {/* Left Column: Contact Form */}
+          <div class="lg:col-span-7">
+            <form id="contact-form" novalidate class="space-y-5">
+              <input type="hidden" id="service-value" value={preselected} />
+
+              {/* Full name */}
+              <div>
+                <label
+                  for="fullName"
+                  class="block font-heading text-[13px] font-bold text-xelvon-dark"
+                >
+                  Full name <span class="text-xelvon-dark">*</span>
+                </label>
+                <input
+                  id="fullName"
+                  type="text"
+                  required
+                  placeholder="e.g. Ayesha Khan"
+                  class="mt-1.5 h-[44px] w-full rounded-[4px] border bg-white px-3.5 font-body text-[13.5px] text-xelvon-dark placeholder:text-[#8c8c8c] focus:outline-none focus:ring-2 border-xelvon-green focus:ring-xelvon-green/25"
+                />
+                <p role="alert" data-error="fullName" class="mt-1.5 hidden font-body text-[11.5px] font-medium text-red-600"></p>
+              </div>
+
+              {/* Work email */}
+              <div>
+                <label
+                  for="workEmail"
+                  class="block font-heading text-[13px] font-bold text-xelvon-dark"
+                >
+                  Work email <span class="text-xelvon-dark">*</span>
+                </label>
+                <input
+                  id="workEmail"
+                  type="email"
+                  required
+                  placeholder="name@company.com"
+                  class="mt-1.5 h-[44px] w-full rounded-[4px] border bg-white px-3.5 font-body text-[13.5px] text-xelvon-dark placeholder:text-[#8c8c8c] focus:outline-none focus:ring-2 border-xelvon-green focus:ring-xelvon-green/25"
+                />
+                <p role="alert" data-error="workEmail" class="mt-1.5 hidden font-body text-[11.5px] font-medium text-red-600"></p>
+                <p data-hint="workEmail" class="mt-1.5 font-body text-[11.5px] text-[#555555]">
+                  We&apos;ll reply from this address
+                </p>
+              </div>
+
+              {/* Phone / WhatsApp */}
+              <div>
+                <label
+                  for="phone"
+                  class="block font-heading text-[13px] font-bold text-xelvon-dark"
+                >
+                  Phone / WhatsApp
+                </label>
+                <input
+                  id="phone"
+                  type="tel"
+                  placeholder="+92 3XX XXXXXXX"
+                  class="mt-1.5 h-[44px] w-full rounded-[4px] border bg-white px-3.5 font-body text-[13.5px] text-xelvon-dark placeholder:text-[#8c8c8c] focus:outline-none focus:ring-2 border-xelvon-green focus:ring-xelvon-green/25"
+                />
+                <p role="alert" data-error="phone" class="mt-1.5 hidden font-body text-[11.5px] font-medium text-red-600"></p>
+                <p data-hint="phone" class="mt-1.5 font-body text-[11.5px] text-[#555555]">
+                  Include your country code, e.g. +92
+                </p>
+              </div>
+
+              {/* Service of interest */}
+              <div id="service-dropdown" class="relative">
+                <label
+                  id="service-label"
+                  class="block font-heading text-[13px] font-bold text-xelvon-dark"
+                >
+                  Service of interest <span class="text-xelvon-dark">*</span>
+                </label>
+                <button
+                  id="service"
+                  type="button"
+                  aria-haspopup="listbox"
+                  aria-expanded="false"
+                  aria-labelledby="service-label"
+                  class="mt-1.5 flex h-[44px] w-full items-center justify-between rounded-[4px] border bg-white px-3.5 text-left font-body text-[13.5px] focus:outline-none focus:ring-2 border-xelvon-green focus:ring-xelvon-green/25"
+                >
+                  <span id="service-display" class={preselected ? 'text-xelvon-dark' : 'text-[#8c8c8c]'}>
+                    {preselected || 'Select a service'}
+                  </span>
+                  <span data-chevron class="block text-xelvon-dark transition-transform duration-150">
+                    <Icon name="chevron-down" size={17} />
+                  </span>
+                </button>
+                <p role="alert" data-error="service" class="mt-1.5 hidden font-body text-[11.5px] font-medium text-red-600"></p>
+                <p data-hint="service" class="mt-1.5 font-body text-[11.5px] text-[#555555]">
+                  Pick the closest match.
+                </p>
+
+                <ul
+                  id="service-options"
+                  role="listbox"
+                  class="mt-2 hidden overflow-hidden rounded-[6px] border border-xelvon-green bg-white shadow-md"
+                >
+                  {SERVICE_OPTIONS.map((option) => (
+                    <li role="option" aria-selected={option === preselected ? 'true' : 'false'}>
+                      <button
+                        type="button"
+                        data-option={option}
+                        class={`block w-full px-4 py-3 text-left font-body text-[13.5px] transition-colors ${
+                          option === preselected
+                            ? 'bg-[#edf3ec] font-medium text-xelvon-dark'
+                            : 'text-xelvon-dark hover:bg-[#edf3ec]'
+                        }`}
+                      >
+                        {option}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Message */}
+              <div>
+                <div class="flex items-center justify-between">
+                  <label
+                    for="message"
+                    class="block font-heading text-[13px] font-bold text-xelvon-dark"
+                  >
+                    Message <span class="text-xelvon-dark">*</span>
+                  </label>
+                  <span id="message-counter" class="font-body text-[11px] text-[#666666]">
+                    0/20 min
+                  </span>
+                </div>
+                <textarea
+                  id="message"
+                  rows="5"
+                  required
+                  class="mt-1.5 w-full rounded-[4px] border bg-white p-3.5 font-body text-[13.5px] text-xelvon-dark placeholder:text-[#8c8c8c] focus:outline-none focus:ring-2 border-xelvon-green focus:ring-xelvon-green/25"
+                ></textarea>
+                <p role="alert" data-error="message" class="mt-1.5 hidden font-body text-[11.5px] font-medium text-red-600"></p>
+                <p data-hint="message" class="mt-1.5 font-body text-[11.5px] text-[#555555]">
+                  At least 20 characters. Please don&apos;t include passwords
+                </p>
+              </div>
+
+              {/* Privacy Consent Box */}
+              <div>
+                <label
+                  id="agreed-label"
+                  class="flex cursor-pointer items-center gap-3 rounded-[4px] border bg-white px-4 py-3.5 border-[#222222]"
+                >
+                  <span class="relative flex h-4 w-4 shrink-0 items-center justify-center">
+                    <input
+                      id="agreed"
+                      type="checkbox"
+                      class="peer h-4 w-4 cursor-pointer appearance-none rounded-[2px] border border-[#222222] bg-white checked:border-xelvon-green checked:bg-xelvon-green"
+                    />
+                    <span class="pointer-events-none absolute hidden text-white peer-checked:block">
+                      <Icon name="check" size={12} strokeWidth={3} />
+                    </span>
+                  </span>
+                  <span class="font-heading text-[12.5px] font-bold text-xelvon-dark">
+                    I agree to XELVON contacting me about this enquiry. See our{' '}
+                    <a href="/privacy" class="underline hover:text-xelvon-green">
+                      Privacy Policy
+                    </a>
+                    .
+                  </span>
+                </label>
+                <p role="alert" data-error="agreed" class="mt-1.5 hidden font-body text-[11.5px] font-medium text-red-600"></p>
+              </div>
+
+              {/* Submission / Network Error */}
+              <p
+                role="alert"
+                id="submit-error"
+                class="hidden rounded-[4px] border border-red-300 bg-red-50 px-4 py-2.5 text-[12.5px] font-medium text-red-700"
+              ></p>
+
+              {/* Submit Button */}
+              <button
+                type="submit"
+                id="submit-button"
+                class="flex h-[46px] w-full items-center justify-center rounded-[4px] bg-xelvon-green px-6 font-heading text-[13.5px] font-bold text-white transition-colors hover:bg-xelvon-green-hover disabled:opacity-75"
+              >
+                Send message
+              </button>
+
+              {/* Loading State Indicator */}
+              <p id="sending-indicator" class="hidden font-body text-[12px] text-[#444444]">
+                Loading state: <strong class="font-bold text-xelvon-dark">Sending...</strong>
+              </p>
+
+              {/* Message Sent Confirmation Box */}
+              <div id="sent-confirmation" class="hidden rounded-[4px] border border-xelvon-green bg-white px-5 py-4">
+                <h3 class="font-heading text-[15px] font-bold text-xelvon-dark">
+                  Message sent
+                </h3>
+                <p class="mt-1 font-body text-[12.5px] text-[#444444]">
+                  Thanks. We&apos;ll reply within one business day. For anything urgent, call or
+                  WhatsApp our 24/7 help desk.
+                </p>
+              </div>
+            </form>
+          </div>
+
+          {/* Right Column: Direct Contact Pills + Office & Emergency Cards */}
+          <div class="space-y-3.5 lg:col-span-5">
+            <a
+              href={COMPANY.phoneHref}
+              class="flex h-[44px] w-full items-center justify-center rounded-[4px] border border-[#222222] bg-white px-4 font-heading text-[13px] font-bold text-xelvon-dark transition-colors hover:border-xelvon-green hover:text-xelvon-green"
+            >
+              Call {COMPANY.phoneDisplay}
+            </a>
+
+            <a
+              href={COMPANY.whatsappHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex h-[44px] w-full items-center justify-center rounded-[4px] border border-[#222222] bg-white px-4 font-heading text-[13px] font-bold text-xelvon-dark transition-colors hover:border-xelvon-green hover:text-xelvon-green"
+            >
+              WhatsApp +92 333 433 3611
+            </a>
+
+            <a
+              href={COMPANY.emailHref}
+              class="flex h-[44px] w-full items-center justify-center rounded-[4px] border border-[#222222] bg-white px-4 font-heading text-[13px] font-bold text-xelvon-dark transition-colors hover:border-xelvon-green hover:text-xelvon-green"
+            >
+              <span>
+                Email <span class="underline">{COMPANY.email}</span>
+              </span>
+            </a>
+
+            {/* Office, Lahore Card */}
+            <div class="rounded-[4px] border border-[#666666] bg-[#e2e2e2] px-5 py-4">
+              <h2 class="font-heading text-[15px] font-bold text-xelvon-dark">
+                Office, Lahore
+              </h2>
+              <ul class="mt-2 list-disc space-y-1 pl-5 font-body text-[12px] text-[#444444]">
+                <li>1304 Al Hafeez Executive, C3, Gulberg III, Lahore</li>
+                <li>Office hours: Monday to Friday, 10:00 am – 10:00 pm</li>
+                <li>Help desk: 24/7</li>
+              </ul>
+            </div>
+
+            {/* Emergency? Card */}
+            <div class="rounded-[4px] border border-xelvon-green bg-[#f2f4f1] px-5 py-4">
+              <h2 class="font-heading text-[15px] font-bold text-xelvon-dark">
+                Emergency?
+              </h2>
+              <p class="mt-1 font-body text-[12px] text-[#444444]">
+                Our help desk runs 24/7. Call or WhatsApp for the fastest response.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<script>
+  const SERVICE_OPTIONS = [
+    'Software & Web',
+    'Cyber Security & IT',
+    'Infrastructure & Cloud',
+    'Managed IT & Support',
+    'Not sure yet',
+  ];
+
+  const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  const PHONE_REGEX = /^\+[1-9]\d{6,14}$/;
+
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  const fields = {
+    fullName: document.getElementById('fullName') as HTMLInputElement,
+    workEmail: document.getElementById('workEmail') as HTMLInputElement,
+    phone: document.getElementById('phone') as HTMLInputElement,
+    serviceValue: document.getElementById('service-value') as HTMLInputElement,
+    serviceDisplay: document.getElementById('service-display') as HTMLElement,
+    message: document.getElementById('message') as HTMLTextAreaElement,
+    agreed: document.getElementById('agreed') as HTMLInputElement,
+  };
+  const dropdown = document.getElementById('service-dropdown') as HTMLElement;
+  const serviceButton = document.getElementById('service') as HTMLButtonElement;
+  const serviceOptions = document.getElementById('service-options') as HTMLElement;
+  const chevron = serviceButton.querySelector('[data-chevron]') as HTMLElement;
+  const messageCounter = document.getElementById('message-counter') as HTMLElement;
+  const submitButton = document.getElementById('submit-button') as HTMLButtonElement;
+  const submitError = document.getElementById('submit-error') as HTMLElement;
+  const sendingIndicator = document.getElementById('sending-indicator') as HTMLElement;
+  const sentConfirmation = document.getElementById('sent-confirmation') as HTMLElement;
+
+  const touched: Record<string, boolean> = {};
+
+  // Pre-fill service from ?service=... query param (client-side, since the
+  // page is statically prerendered and cannot see query params at build time)
+  const serviceParam = new URLSearchParams(window.location.search).get('service');
+  if (serviceParam) {
+    const matched = SERVICE_OPTIONS.find(
+      (opt) => opt.toLowerCase() === serviceParam.toLowerCase(),
+    );
+    if (matched) {
+      fields.serviceValue.value = matched;
+      fields.serviceDisplay.textContent = matched;
+      fields.serviceDisplay.classList.remove('text-[#8c8c8c]');
+      fields.serviceDisplay.classList.add('text-xelvon-dark');
+      serviceOptions.querySelectorAll('[data-option]').forEach((btn) => {
+        const isSelected = (btn as HTMLButtonElement).dataset.option === matched;
+        (btn.closest('li') as HTMLElement)?.setAttribute('aria-selected', String(isSelected));
+        btn.classList.toggle('bg-[#edf3ec]', isSelected);
+        btn.classList.toggle('font-medium', isSelected);
+      });
+    }
+  }
+
+  const getService = () => fields.serviceValue.value;
+
+  const setError = (field: string, message?: string) => {
+    const el = document.querySelector(`[data-error="${field}"]`);
+    const hint = document.querySelector(`[data-hint="${field}"]`);
+    if (el) {
+      el.textContent = message ?? '';
+      el.classList.toggle('hidden', !message);
+    }
+    if (hint) hint.classList.toggle('hidden', Boolean(message));
+    const input = document.getElementById(field) ?? (field === 'service' ? serviceButton : null);
+    if (input) {
+      input.classList.toggle('border-red-600', Boolean(message));
+      input.classList.toggle('focus:ring-red-500/25', Boolean(message));
+      input.classList.toggle('border-xelvon-green', !message);
+      input.classList.toggle('focus:ring-xelvon-green/25', !message);
+      if ('setAttribute' in input) input.setAttribute('aria-invalid', String(Boolean(message)));
+    }
+    if (field === 'agreed') {
+      const label = document.getElementById('agreed-label');
+      label?.classList.toggle('border-red-600', Boolean(message));
+      label?.classList.toggle('border-[#222222]', !message);
+    }
+  };
+
+  const validateAll = (): Record<string, string> => {
+    const errors: Record<string, string> = {};
+
+    const trimmedName = fields.fullName.value.trim();
+    if (!trimmedName) {
+      errors.fullName = 'Full name is required.';
+    } else if (trimmedName.length < 2) {
+      errors.fullName = 'Please enter at least 2 characters.';
+    } else if (!/^[a-zA-Z\s.'-]+$/.test(trimmedName)) {
+      errors.fullName = 'Name can only contain letters, spaces, dots, or hyphens.';
+    }
+
+    const trimmedEmail = fields.workEmail.value.trim();
+    if (!trimmedEmail) {
+      errors.workEmail = 'Work email is required.';
+    } else if (!EMAIL_REGEX.test(trimmedEmail)) {
+      errors.workEmail = 'Enter a valid email address (e.g. name@company.com).';
+    }
+
+    const normalizedPhone = fields.phone.value.replace(/[\s()-]/g, '');
+    if (normalizedPhone && !PHONE_REGEX.test(normalizedPhone)) {
+      errors.phone = 'Include your country code and 7–15 digits (e.g. +92 300 1234567).';
+    }
+
+    if (!getService() || !SERVICE_OPTIONS.includes(getService())) {
+      errors.service = 'Please select a service of interest.';
+    }
+
+    const trimmedMsg = fields.message.value.trim();
+    if (!trimmedMsg) {
+      errors.message = 'Message is required.';
+    } else if (trimmedMsg.length < 20) {
+      errors.message = `Please enter at least 20 characters (${trimmedMsg.length}/20).`;
+    } else if (trimmedMsg.length > 3000) {
+      errors.message = 'Message cannot exceed 3,000 characters.';
+    }
+
+    if (!fields.agreed.checked) {
+      errors.agreed = 'You must agree to XELVON contacting you about this enquiry.';
+    }
+
+    return errors;
+  };
+
+  const renderErrors = (errors: Record<string, string>) => {
+    ['fullName', 'workEmail', 'phone', 'service', 'message', 'agreed'].forEach((f) => {
+      setError(f, touched[f] ? errors[f] : undefined);
+    });
+  };
+
+  const handleBlur = (field: string) => {
+    touched[field] = true;
+    renderErrors(validateAll());
+  };
+
+  // Live re-validation of touched fields
+  [fields.fullName, fields.workEmail, fields.phone, fields.message, fields.agreed].forEach((el) => {
+    el.addEventListener('input', () => {
+      if (Object.keys(touched).length > 0) renderErrors(validateAll());
+    });
+    el.addEventListener('blur', () => handleBlur(el.id));
+  });
+
+  fields.message.addEventListener('input', () => {
+    const len = fields.message.value.trim().length;
+    messageCounter.textContent = `${len}/20 min`;
+    messageCounter.classList.toggle('text-xelvon-green', len >= 20);
+    messageCounter.classList.toggle('font-medium', len >= 20);
+    messageCounter.classList.toggle('text-[#666666]', len < 20);
+  });
+
+  // Custom select dropdown
+  let dropdownOpen = false;
+  const setDropdownOpen = (open: boolean) => {
+    dropdownOpen = open;
+    serviceOptions.classList.toggle('hidden', !open);
+    serviceButton.setAttribute('aria-expanded', String(open));
+    chevron.classList.toggle('rotate-180', open);
+  };
+
+  serviceButton.addEventListener('click', () => {
+    setDropdownOpen(!dropdownOpen);
+    touched.service = true;
+    renderErrors(validateAll());
+  });
+
+  serviceOptions.querySelectorAll('[data-option]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const value = (btn as HTMLButtonElement).dataset.option ?? '';
+      fields.serviceValue.value = value;
+      fields.serviceDisplay.textContent = value;
+      fields.serviceDisplay.classList.remove('text-[#8c8c8c]');
+      fields.serviceDisplay.classList.add('text-xelvon-dark');
+      serviceOptions.querySelectorAll('[aria-selected]').forEach((li) => li.setAttribute('aria-selected', 'false'));
+      (btn.closest('li') as HTMLElement).setAttribute('aria-selected', 'true');
+      setDropdownOpen(false);
+      touched.service = true;
+      renderErrors(validateAll());
+    });
+  });
+
+  document.addEventListener('mousedown', (e) => {
+    if (dropdownOpen && !dropdown.contains(e.target as Node)) setDropdownOpen(false);
+  });
+
+  fields.agreed.addEventListener('change', () => {
+    touched.agreed = true;
+    renderErrors(validateAll());
+  });
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    ['fullName', 'workEmail', 'phone', 'service', 'message', 'agreed'].forEach((f) => {
+      touched[f] = true;
+    });
+
+    const errors = validateAll();
+    renderErrors(errors);
+    submitError.classList.add('hidden');
+
+    if (Object.keys(errors).length > 0) {
+      const firstInvalid = document.getElementById(Object.keys(errors)[0]);
+      firstInvalid?.focus();
+      return;
+    }
+
+
+    submitButton.disabled = true;
+    submitButton.textContent = 'Sending...';
+    sendingIndicator.classList.remove('hidden');
+    sentConfirmation.classList.add('hidden');
+
+    try {
+      const web3FormsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY;
+      const service = getService();
+
+      if (web3FormsKey) {
+        const res = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({
+            access_key: web3FormsKey,
+            subject: `New XELVON Enquiry: ${service} — ${fields.fullName.value.trim()}`,
+            from_name: 'XELVON Website Contact Form',
+            name: fields.fullName.value.trim(),
+            email: fields.workEmail.value.trim(),
+            phone: fields.phone.value.trim() || 'Not provided',
+            service,
+            message: fields.message.value.trim(),
+          }),
+        });
+        const data = await res.json();
+        if (!data.success) throw new Error(data.message || 'Submission failed');
+      } else {
+        await new Promise((resolve) => setTimeout(resolve, 900));
+      }
+
+
+      form.reset();
+      fields.serviceValue.value = '';
+      fields.serviceDisplay.textContent = 'Select a service';
+      fields.serviceDisplay.classList.add('text-[#8c8c8c]');
+      fields.serviceDisplay.classList.remove('text-xelvon-dark');
+      messageCounter.textContent = '0/20 min';
+      Object.keys(touched).forEach((k) => delete touched[k]);
+      sentConfirmation.classList.remove('hidden');
+    } catch {
+
+      submitError.textContent =
+        'Something went wrong sending your message. Please call or WhatsApp our 24/7 help desk.';
+      submitError.classList.remove('hidden');
+    } finally {
+      submitButton.disabled = false;
+      submitButton.textContent = 'Send message';
+      sendingIndicator.classList.add('hidden');
+    }
+  });
+</script>

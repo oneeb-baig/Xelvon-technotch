@@ -1,0 +1,35 @@
+---
+interface Props {
+  title: string;
+  subtitle: string;
+}
+
+const { title, subtitle } = Astro.props;
+---
+
+<section class="relative w-full overflow-hidden bg-xelvon-green text-white">
+  {/* Decorative Right X Watermark */}
+  <div
+    class="pointer-events-none absolute -bottom-8 right-2 w-[230px] select-none opacity-45 sm:right-8 sm:w-[290px] lg:-bottom-10 lg:right-14 lg:w-[350px]"
+    aria-hidden="true"
+  >
+    <img
+      src="/assets/x_watermark.svg"
+      alt=""
+      class="block h-auto w-full object-contain"
+    />
+  </div>
+
+  <div class="relative z-10 mx-auto w-full max-w-site px-5 py-12 sm:px-8 sm:py-14 lg:px-14 lg:py-16">
+    <h1 class="font-heading text-[32px] font-bold leading-[1.15] tracking-tight text-white sm:text-[42px] lg:text-[48px]">
+      {title}
+    </h1>
+    <p class="mt-3 max-w-[600px] font-body text-[14px] leading-relaxed text-white/90 sm:text-[15px]">
+      {subtitle}
+    </p>
+
+    <div class="mt-7">
+      <slot />
+    </div>
+  </div>
+</section>

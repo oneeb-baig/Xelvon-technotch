@@ -1,0 +1,129 @@
+---
+interface Props {
+  year: number;
+}
+
+const { year } = Astro.props;
+---
+
+<footer class="relative w-full overflow-hidden bg-[#F3F5F1] text-[#171717]">
+  {/* Bottom-Right Decorative X Watermark */}
+  <div
+    class="pointer-events-none absolute -bottom-8 right-0 w-[235px] select-none opacity-[0.55] sm:-bottom-10 sm:w-[300px] lg:-bottom-14 lg:w-[360px]"
+    aria-hidden="true"
+  >
+    <img
+      src="/assets/x_watermark.svg"
+      alt=""
+      class="block h-auto w-full object-contain"
+    />
+  </div>
+
+  {/* Main Footer Container */}
+  <div class="relative z-10 mx-auto w-full max-w-[1440px] px-5 pb-28 pt-4 sm:px-10 sm:pb-32 sm:pt-10 lg:px-14 lg:pb-36 lg:pt-20">
+    <div class="grid grid-cols-2 gap-x-6 gap-y-11 lg:grid-cols-4 lg:gap-12">
+      {/* Column 1: Logo & Copyright */}
+      <div class="col-span-2 lg:col-span-1">
+        <a href="/" aria-label="XELVON Home" class="inline-block">
+          <picture>
+            <source srcset="/assets/xelvon_logo.webp" type="image/webp" />
+            <img
+              src="/assets/xelvon_logo_raw_1.png"
+              alt="XELVON (Private) Limited"
+              width="1143"
+              height="348"
+              loading="lazy"
+              decoding="async"
+              class="block h-[54px] w-auto object-contain sm:h-[60px] lg:h-[64px]"
+            />
+          </picture>
+        </a>
+
+        <div class="mt-4 space-y-3 text-[12px] leading-relaxed text-[#222222] lg:mt-7 lg:space-y-4 lg:pl-4">
+          <p>© {year} XELVON (Private) Limited</p>
+          <p>Gulberg III, Lahore, Pakistan</p>
+        </div>
+      </div>
+
+      {/* Column 2: Services */}
+      <div class="col-span-1 lg:col-span-1 lg:pt-5">
+        <h4 class="font-heading text-[15px] font-bold text-[#111111]">
+          Services
+        </h4>
+        <ul class="mt-4 space-y-4 text-[13.5px] text-[#333333] sm:text-[14px]">
+          <li>
+            <a href="/services#cybersecurity" class="transition-colors hover:text-[#0f6b2c]">
+              Cyber Security &amp; IT
+            </a>
+          </li>
+          <li>
+            <a href="/services#cloud" class="transition-colors hover:text-[#0f6b2c]">
+              Infrastructure &amp; Cloud
+            </a>
+          </li>
+          <li>
+            <a href="/services#software" class="transition-colors hover:text-[#0f6b2c]">
+              Software &amp; Web
+            </a>
+          </li>
+          <li>
+            <a href="/services#support" class="transition-colors hover:text-[#0f6b2c]">
+              Managed IT &amp; Support
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      {/* Column 3: Company */}
+      <div class="col-span-1 lg:col-span-1 lg:pt-5">
+        <h4 class="font-heading text-[15px] font-bold text-[#111111]">
+          Company
+        </h4>
+        <ul class="mt-4 space-y-4 text-[13.5px] text-[#333333] sm:text-[14px]">
+          <li>
+            <a href="/about" class="transition-colors hover:text-[#0f6b2c]">About</a>
+          </li>
+          <li>
+            <a href="/contact" class="transition-colors hover:text-[#0f6b2c]">Contact</a>
+          </li>
+          <li>
+            <a href="/privacy" class="transition-colors hover:text-[#0f6b2c]">Privacy Policy</a>
+          </li>
+          <li>
+            <a href="/terms" class="transition-colors hover:text-[#0f6b2c]">Terms</a>
+          </li>
+        </ul>
+      </div>
+
+      {/* Column 4: Reach us */}
+      <div class="col-span-2 lg:col-span-1 lg:pt-5">
+        <h4 class="font-heading text-[15px] font-bold text-[#111111]">
+          Reach us
+        </h4>
+        <ul class="mt-4 space-y-4 text-[13.5px] text-[#333333] sm:text-[14px]">
+          <li>
+            <a href="tel:+924237897420" class="whitespace-nowrap transition-colors hover:text-[#0f6b2c]">
+              Phone +92 42 3789 7420
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://wa.me/923334333611"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="whitespace-nowrap transition-colors hover:text-[#0f6b2c]"
+            >
+              WhatsApp +92 333 433 3611
+            </a>
+          </li>
+          <li>
+            <a href="mailto:info@xelvon.com.pk" class="whitespace-nowrap transition-colors hover:text-[#0f6b2c]">
+              Email info@xelvon.com.pk
+            </a>
+          </li>
+          <li class="text-[#333333]">Help desk 24/7</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>

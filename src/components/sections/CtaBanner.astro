@@ -1,0 +1,60 @@
+---
+interface Props {
+  title?: string;
+  subtitle?: string;
+  buttonText?: string;
+  buttonHref?: string;
+}
+
+const {
+  title = "Let's talk about your project",
+  subtitle = 'Tell us what you need and an engineer will reply within one business day.',
+  buttonText = 'Contact us',
+  buttonHref = '/contact',
+} = Astro.props;
+---
+
+<section class="w-full bg-white pt-10 sm:pt-12 lg:pt-14">
+  <div class="mx-auto w-full max-w-site px-5 sm:px-8 lg:px-14">
+    <div class="relative overflow-hidden bg-[#030d05] px-6 py-8 sm:px-10 sm:py-9 lg:px-12 lg:py-9">
+      {/* Rotated Horizontal Network Texture matching Figma */}
+      <img
+        src="/assets/cta_network.webp"
+        alt=""
+        aria-hidden="true"
+        width="562"
+        height="1000"
+        loading="lazy"
+        decoding="async"
+        class="pointer-events-none absolute left-1/2 top-1/2 h-[1440px] w-[420px] max-w-none -translate-x-1/2 -translate-y-1/2 -rotate-90 object-cover opacity-95"
+      />
+
+      {/* Light Left-Edge Readability Tint (keeps neon green nodes bright) */}
+      <div
+        class="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#020a04]/70 via-[#020a04]/25 to-transparent"
+        aria-hidden="true"
+      />
+
+      {/* Content */}
+      <div class="relative z-10 flex flex-col justify-between gap-6 md:flex-row md:items-center">
+        <div class="max-w-[640px]">
+          <h2 class="font-heading text-[24px] font-bold leading-tight text-white sm:text-[28px] lg:text-[32px]">
+            {title}
+          </h2>
+          <p class="mt-1.5 font-body text-[13.5px] leading-relaxed text-white/90 sm:text-[14.5px]">
+            {subtitle}
+          </p>
+        </div>
+
+        <div class="shrink-0">
+          <a
+            href={buttonHref}
+            class="inline-flex h-[46px] w-full items-center justify-center rounded-[4px] bg-xelvon-lime px-8 font-heading text-[14px] font-semibold text-xelvon-dark transition-colors hover:bg-xelvon-lime-hover md:w-auto md:min-w-[230px]"
+          >
+            {buttonText}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
